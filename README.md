@@ -1,11 +1,11 @@
 # CoolApi
 
-.NET Core REST API using EF & Swagger (Project created in VS Code)
+.NET Core REST API using EF & Swagger (Project created using VS Code)
 
 ## To develop this project in VS Code
 
-1. Install VS Code
-2. Install .NET Core SDK (This project uses version 3.1)
+1. Install [VS Code](https://code.visualstudio.com/download)
+2. Install [.NET Core SDK](https://dotnet.microsoft.com/download) (This project uses version 3.1)
 3. Open VS Code & Install few extenstions to make your life bit easier
 
    - C# (by Microsoft)
@@ -13,7 +13,7 @@
    - NuGet Package Manager (by jmrog)
    - C# Extenstions (by JosKreativ)
 
-NOTE : To create, execute, build .... a .NET application without using Visual Studio we should be aware of various .NET CLI commands. You can find them on official documentation by Microsoft.
+NOTE : To create, execute, build .... a .NET application without using Visual Studio we should be aware of various .NET CLI commands. You can find them on [official documentation](https://docs.microsoft.com/en-us/dotnet/core/tools) by Microsoft.
 
 ### Commands used to create project, open it in VS Code & Executing it are as follows -
 
