@@ -4,7 +4,7 @@ namespace CoolApi.Models
 {
     public class StudentContext : DbContext
     {
-        public StudentContext(DbContextOptions options) : base(options)
+        public StudentContext(DbContextOptions<StudentContext> options) : base(options)
         {
             
         }

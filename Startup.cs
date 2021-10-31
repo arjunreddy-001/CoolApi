@@ -1,4 +1,6 @@
 using System;
+using AutoMapper;
+using CoolApi.Data;
 using CoolApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace CoolApi
 {
@@ -22,9 +25,21 @@ namespace CoolApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<StudentContext>(opt => opt.UseSqlServer(connectionString));
-            services.AddControllers();
+            string defaultConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<StudentContext>(opt => opt.UseSqlServer(defaultConnectionString));
+
+            string commanderConnectionString = Configuration.GetConnectionString("CommanderConnection");
+            services.AddDbContext<CommandContext>(opt => opt.UseSqlServer(commanderConnectionString));
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
+            services.AddControllers().AddNewtonsoftJson(s => {
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+
+            services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
+            // services.AddScoped<ICommanderRepo, MockCommanderRepo>();
+
             services.AddSwaggerGen(c => 
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

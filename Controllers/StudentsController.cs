@@ -5,19 +5,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoolApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace CoolApi.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
-    public class StudentController : Controller
+    public class StudentsController : ControllerBase
     {
-        private readonly ILogger<StudentController> _logger;
         private StudentContext _studentContext { get; set; }
 
-        public StudentController(ILogger<StudentController> logger, StudentContext ctx)
+        public StudentsController(StudentContext ctx)
         {
-            _logger = logger;
             _studentContext = ctx;
         }
 
@@ -117,7 +115,7 @@ namespace CoolApi.Controllers
             return Ok("Student deleted successfully");
         }
 
-        ~StudentController()
+        ~StudentsController()
         {
             _studentContext.Dispose();
         }
