@@ -33,7 +33,11 @@ dotnet run
 dotnet watch run
 ```
 
+---
+
 ## Commands for Entity Framework migrations
+
+NOTE : Make sure that you're connected to your Database Engine. In other words, your Database server is running. Before you execute any "dotnet ef" commands.
 
 ```
 dotnet ef migrations add InitialCreate
@@ -70,6 +74,24 @@ dotnet restore
 
 Run migration commands after all the above installations are done.
 
+---
+
+### Migration & Update for specific DbContext
+
+If we have multiple DbContext files (here, StudentContext & CommandContext) in our project. General commands wont work. We need to explicitly specify our DbContext in the command we will execute.
+
+Example -
+
+```
+dotnet ef migrations add CommanderDB --context CommandContext
+```
+
+```
+dotnet ef database update --context CommandContext
+```
+
+---
+
 ## Implementation of Swagger API documentation
 
 Swagger (www.swagger.io) is a great tool for documenting your APIs and it also provides great UI for testing APIs that you have created.
@@ -81,3 +103,40 @@ Swashbuckle.AspNetCore
 ```
 
 Install above mentioned NuGet Package & Write few lines of code in Startup.cs to use Swagger in your Web API project.
+
+---
+
+## Working with PATCH requests
+
+With PATCH we can perform 6 different operations -
+
+1. Add
+2. Remove
+3. Replace
+4. Copy
+5. Move
+6. Test
+
+To work with PATCH, we need below NuGet packages -
+
+- Microsoft.AspNetCore.JsonPatch
+- Microsoft.AspNetCore.Mvc.NewtonsoftJson
+
+Example Request Body for PATCH -
+
+```
+[
+   {
+      "op": "replace",
+      "path": "/howto",
+      "value": "Some new value"
+   },
+   {
+      "op": "test",
+      "path": "/line",
+      "value": "dotnet new"
+   }
+]
+```
+
+With PATCH request, either all operations should complete successfully or fail.
